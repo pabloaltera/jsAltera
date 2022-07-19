@@ -36,8 +36,7 @@ alert("COMENZANDO SISTEMA DE GESTION")
 let respuesta
 
 function accion () {
-    respuesta = prompt("Ingrese NUEVO para ingresar afiliado o SALIR para terminar la ejecución")
-    return respuesta
+    respuesta = prompt("Ingrese NUEVO para ingresar afiliado / SALIR para terminar la ejecución / CANTIDAD para mostrar la cantidad actual de afiliados / BORRAR para borrar el último registro ingresado")
 }
 
 
@@ -56,6 +55,8 @@ class Afiliado {
     }
 }
 
+const padron = [] 
+
 function nuevoAfiliado(){
     dni = prompt("Ingrese el DNI")
     nombre = prompt("Ingrese el nombre")
@@ -70,7 +71,8 @@ function nuevoAfiliado(){
     
     afiliado = new Afiliado (dni, nombre, apellido, anioNacimiento, domicilio, codPostal, ciudad, provincia, pais, categoria)
     
-    console.log(afiliado)
+    padron.push(afiliado)
+    
 }
 
 respuesta = accion()
@@ -81,8 +83,19 @@ while (respuesta !== "salir" && respuesta !=="SALIR"){
         nuevoAfiliado()
         accion()
     }
+    else if(respuesta === "CANTIDAD" || respuesta === "cantidad"){
+        console.log("La cantidad de afiliados es de: " + padron.length)
+        accion()
+    }
+    else if(respuesta === "BORRAR" || respuesta === "borrar"){
+        padron.pop()
+        console.log("REGISTRO BORRADO!!!")
+        accion()
+    }
     else{
         alert("INGRESE UNA RESPUESTA VALIDA!!")
-        respuesta = accion()
+        accion()
     }
 }
+
+console.log(padron)
