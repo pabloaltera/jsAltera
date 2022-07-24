@@ -36,7 +36,7 @@ alert("COMENZANDO SISTEMA DE GESTION")
 let respuesta
 
 function accion () {
-    respuesta = prompt("Ingrese NUEVO para ingresar afiliado / SALIR para terminar la ejecución / CANTIDAD para mostrar la cantidad actual de afiliados / BORRAR para borrar el último registro ingresado")
+    respuesta = prompt("Ingrese NUEVO para ingresar afiliado / SALIR para terminar la ejecución / CANTIDAD para mostrar la cantidad actual de afiliados / BUSCAR para buscar un socio dentro del padron / BORRAR para borrar el último registro ingresado")
 }
 
 
@@ -57,6 +57,7 @@ class Afiliado {
 
 const padron = [] 
 
+
 function nuevoAfiliado(){
     dni = prompt("Ingrese el DNI")
     nombre = prompt("Ingrese el nombre")
@@ -69,14 +70,28 @@ function nuevoAfiliado(){
     pais = prompt("Ingrese el país")
     categoria = prompt("Ingrese si es SOCIO o si es EMPLEADO")
     
-    afiliado = new Afiliado (dni, nombre, apellido, anioNacimiento, domicilio, codPostal, ciudad, provincia, pais, categoria)
-    
-    padron.push(afiliado)
+    if (padron.some((Afiliado) => {
+        return Afiliado.dni === dni
+    })) {
+        alert(`El DNI  ${dni} ingresado ya figura en la base de datos!!`)
+    } else {
+        afiliado = new Afiliado (dni, nombre, apellido, anioNacimiento, domicilio, codPostal, ciudad, provincia, pais, categoria)
+
+        padron.push(afiliado)
+    }
+
     
 }
 
-respuesta = accion()
 
+function buscarDni(buscar){
+    const padronFiltrado = padron.filter((Afiliado)=>{
+        return Afiliado.dni === buscar
+    })
+    console.log(padronFiltrado)
+}
+
+accion()
 
 while (respuesta !== "salir" && respuesta !=="SALIR"){
     if (respuesta === "NUEVO" || respuesta === "nuevo"){
@@ -90,6 +105,11 @@ while (respuesta !== "salir" && respuesta !=="SALIR"){
     else if(respuesta === "BORRAR" || respuesta === "borrar"){
         padron.pop()
         console.log("REGISTRO BORRADO!!!")
+        accion()
+    }
+    else if(respuesta === "BUSCAR" || respuesta === "buscar"){
+        buscar = prompt("Ingrese DNI a buscar")
+        buscarDni(buscar)
         accion()
     }
     else{
