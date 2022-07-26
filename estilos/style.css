@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.contenedorAfiliados {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+h1, h2 {
+    margin: 1rem
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+.tarjeta {
+    width: auto;
+    background-color: lightskyblue;
+    border: 1px solid blue;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1rem;
+    margin: 1rem;
+    padding: 0.5rem;
+}

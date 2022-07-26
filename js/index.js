@@ -57,7 +57,6 @@ class Afiliado {
 
 const padron = [] 
 
-
 function nuevoAfiliado(){
     dni = prompt("Ingrese el DNI")
     nombre = prompt("Ingrese el nombre")
@@ -119,3 +118,26 @@ while (respuesta !== "salir" && respuesta !=="SALIR"){
 }
 
 console.log(padron)
+
+const tarjetasHtml = padron.reduce((acc, elemento, i) => {   
+
+    return acc = acc + `    
+        <div class="tarjeta"> 
+            <h3>${elemento.apellido} ${elemento.nombre}</h3>
+            <p>
+                DNI: ${elemento.dni} <br>
+                Año Nacimiento: ${elemento.anioNacimiento}<br>
+                Domicilio: ${elemento.domicilio}<br>
+                Cod. Postal: ${elemento.codPostal}<br>
+                Ciudad: ${elemento.ciudad}<br>
+                Privincia: ${elemento.provincia}<br>
+                País: ${elemento.pais}<br>
+                Categoría: ${elemento.categoria}
+            </p> 
+        </div>
+    `       
+},"")
+
+const contenedorAfiliados = document.querySelector(".contenedorAfiliados")
+
+contenedorAfiliados.innerHTML = tarjetasHtml
