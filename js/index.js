@@ -1,40 +1,19 @@
-// let usuario = "admin"
-// let contrasenia  = "1234"
-
 const formIngreso = document.querySelector("#ingreso")
+const formAltas = document.querySelector("#formularioAlta")
 const divIngreso = document.querySelector(".ingreso")
 const divAltas = document.querySelector(".altas")
 const divPadron = document.querySelector(".padron")
-let usuario = document.querySelector("#userId")
-let contrasenia = document.querySelector("#inputPassword")
+const usuario = document.querySelector("#userId")
+const contrasenia = document.querySelector("#inputPassword")
+const fdni = document.querySelector("#inputDni")
+const fapellido = document.querySelector("#inputApellido")
+const fnombre = document.querySelector("#inputNombres")
+const femail = document.querySelector("#inputEmail")
+const fdireccion = document.querySelector("#inputDireccion")
+const fciudad = document.querySelector("#inputCiudad")
+const fprovincia = document.querySelector("#inputProvincia")
+const fcodPostal = document.querySelector("#inputCodPostal")
 
-
-// function pedirCredenciales() {
-//     usuario = prompt("Ingrese su nombre de usuario")
-//     contrasenia = prompt("Ingrese su contraseña")
-// }
-
-//pedirCredenciales()
-
-
-let intento = 0
-
-
-// while (usuario !== "admin" || contrasenia !== "1234") {
-        
-//     if (intento < 3){
-//         alert ("Usted ha ingresado credenciales incorrectas, por favor, vuelva a intentarlo")
-//         intento++
-//         console.log("Intento fallido " + intento)
-//     }
-//     else {
-//         alert ("Usted ha ingresado credenciales incorrectas, por favor, vuelva a intentarlo... UNA PISTA: Usuario: admin Contraseña: 1234")
-//         intento++
-//         console.log("Intento fallido " + intento)
-//     }
-//     pedirCredenciales()
-
-// }
 
 function revisarIngreso(usuario, contrasenia) {
     if (usuario !== "admin" || contrasenia !== "1234"){
@@ -44,124 +23,77 @@ function revisarIngreso(usuario, contrasenia) {
         divIngreso.style.display = "none"
         divAltas.style.display = "flex"
         divPadron.style.display = "flex"
-        console.log(formIngreso, usuario, contrasenia, divIngreso)
-        console.log("Ingreso")
+        divPadron.style.flexDirection = "column"
+        console.log(divPadron)
     }
 }
 
 formIngreso.onsubmit = (event) => {
     event.preventDefault()
-    console.log(event)
     revisarIngreso(usuario.value,contrasenia.value)
 }
 
-let respuesta
-
-function accion () {
-    respuesta = prompt("Ingrese NUEVO para ingresar afiliado / SALIR para terminar la ejecución / CANTIDAD para mostrar la cantidad actual de afiliados / BUSCAR para buscar un socio dentro del padron / BORRAR para borrar el último registro ingresado")
-}
-
-
 class Afiliado {
-    constructor(dni, nombre, apellido, anioNacimiento, domicilio, codPostal, ciudad, provincia, pais, categoria){
+    constructor(dni, nombre, apellido, domicilio, codPostal, ciudad, provincia,){
         this.dni = dni
         this.nombre = nombre
         this.apellido = apellido
-        this.anioNacimiento = anioNacimiento
         this.domicilio = domicilio
         this.codPostal = codPostal
         this.ciudad = ciudad
         this.provincia = provincia
-        this.pais = pais
-        this.categoria = categoria
     }
 }
 
 const padron = [] 
 
-function nuevoAfiliado(){
-    dni = prompt("Ingrese el DNI")
-    nombre = prompt("Ingrese el nombre")
-    apellido = prompt("Ingrese el apellido")
-    anioNacimiento = prompt("Ingrese el año de nacimiento")
-    domicilio = prompt("Ingrese el domicilio")
-    codPostal = prompt("Ingrese el Código Postal")
-    ciudad = prompt ("Ingrese la ciudad")
-    provincia = prompt("Ingrese la Provincia")
-    pais = prompt("Ingrese el país")
-    categoria = prompt("Ingrese si es SOCIO o si es EMPLEADO")
+function nuevoAfiliado(fdni,fnombre,fapellido,fdireccion,fcodPostal,fciudad,fprovincia){
+    dni = fdni
+    nombre = fnombre
+    apellido = fapellido
+    domicilio = fdireccion
+    codPostal = fcodPostal
+    ciudad = fciudad
+    provincia = fprovincia
     
     if (padron.some((Afiliado) => {
         return Afiliado.dni === dni
     })) {
         alert(`El DNI  ${dni} ingresado ya figura en la base de datos!!`)
     } else {
-        afiliado = new Afiliado (dni, nombre, apellido, anioNacimiento, domicilio, codPostal, ciudad, provincia, pais, categoria)
+        afiliado = new Afiliado (dni, nombre, apellido, domicilio, codPostal, ciudad, provincia)
 
         padron.push(afiliado)
     }
 
+    console.log(padron)
+
     
 }
 
+formAltas.onsubmit = (event) => {
+    event.preventDefault()
+    console.log(fdni.value,fnombre.value,fapellido.value,fdireccion.value,fcodPostal.value,fciudad.value,fprovincia.value)
+    nuevoAfiliado(fdni.value,fnombre.value,fapellido.value,fdireccion.value,fcodPostal.value,fciudad.value,fprovincia.value)
 
-function buscarDni(buscar){
-    const padronFiltrado = padron.filter((Afiliado)=>{
-        return Afiliado.dni === buscar
-    })
-    console.log(padronFiltrado)
+    const tarjetasHtml = padron.reduce((acc, elemento, i) => {   
+
+        return acc = acc + `    
+            <div class="tarjeta"> 
+                <h3>${elemento.apellido} ${elemento.nombre}</h3>
+                <p>
+                    DNI: ${elemento.dni} <br>
+                    Domicilio: ${elemento.domicilio}<br>
+                    Cod. Postal: ${elemento.codPostal}<br>
+                    Ciudad: ${elemento.ciudad}<br>
+                    Privincia: ${elemento.provincia}<br>
+                </p> 
+            </div>
+        `       
+    },"")
+    
+    const contenedorAfiliados = document.querySelector(".contenedorAfiliados")
+    
+    contenedorAfiliados.innerHTML = tarjetasHtml
+
 }
-
-//accion()
-
-respuesta = "salir"
-
-while (respuesta !== "salir" && respuesta !=="SALIR"){
-    if (respuesta === "NUEVO" || respuesta === "nuevo"){
-        nuevoAfiliado()
-        accion()
-    }
-    else if(respuesta === "CANTIDAD" || respuesta === "cantidad"){
-        console.log("La cantidad de afiliados es de: " + padron.length)
-        accion()
-    }
-    else if(respuesta === "BORRAR" || respuesta === "borrar"){
-        padron.pop()
-        console.log("REGISTRO BORRADO!!!")
-        accion()
-    }
-    else if(respuesta === "BUSCAR" || respuesta === "buscar"){
-        buscar = prompt("Ingrese DNI a buscar")
-        buscarDni(buscar)
-        accion()
-    }
-    else{
-        alert("INGRESE UNA RESPUESTA VALIDA!!")
-        accion()
-    }
-}
-
-console.log(padron)
-
-const tarjetasHtml = padron.reduce((acc, elemento, i) => {   
-
-    return acc = acc + `    
-        <div class="tarjeta"> 
-            <h3>${elemento.apellido} ${elemento.nombre}</h3>
-            <p>
-                DNI: ${elemento.dni} <br>
-                Año Nacimiento: ${elemento.anioNacimiento}<br>
-                Domicilio: ${elemento.domicilio}<br>
-                Cod. Postal: ${elemento.codPostal}<br>
-                Ciudad: ${elemento.ciudad}<br>
-                Privincia: ${elemento.provincia}<br>
-                País: ${elemento.pais}<br>
-                Categoría: ${elemento.categoria}
-            </p> 
-        </div>
-    `       
-},"")
-
-const contenedorAfiliados = document.querySelector(".contenedorAfiliados")
-
-contenedorAfiliados.innerHTML = tarjetasHtml
