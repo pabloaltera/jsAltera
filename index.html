@@ -1,19 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/09f79d40f1.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="./estilos/style.css" />
     <title>Js Altera</title>
 </head>
+
 <body>
-    <h1>SISTEMA DE GESTION</h1>
+    <div class="d-flex flex-row justify-content-center">
+        <h1 class="text-primary">SISTEMA DE GESTIÓN SOCIAL</h1>
+    </div>
+    <main>
 
-    <h2>Padrón</h2>
+        <div class="d-flex flex-column align-items-center container gap-3">
+            <div class="ingreso">
+                <div class="border border-primary rounded-3 gap-2 px-5 py-3 bg-light">
+                    <h2 class="text-primary">Ingresar</h2>
+                    <form id="ingreso">
+                        <div class="mb-3">
+                            <label for="userId" class="form-label">Usuario</label>
+                            <input type="text" class="form-control" id="userId" aria-describedby="userHelp">
+                            <div id="userHelp" class="form-text">¡VAMOS A HACERLA FACIL! <br> Usuario: ADMIN <br>
+                                Contraseña: 1234</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputPassword" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="inputPassword">
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-2">Ingresar</button>
+                    </form>
+                </div>
+            </div>
 
-    <div class="contenedorAfiliados"></div>
+            <div class="altas">
+                <div class="d-flex flex-column bg-primary  p-3 bg-opacity-25 ">
+                    <h2>Alta de afiliado</h2>
+                    <form class="row g-3 align-items-center formulario">
+                        <div class="col-md-6">
+                            <label for="inputDni" class="form-label">Documento</label>
+                            <input type="number" class="form-control" id="inputDni" placeholder="Nro de DNI">
+                        </div>
+                        <div class="col-md-6">
+                            <p>*Ingrese nro de DNI sin puntos</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputApellido" class="form-label">Apellido</label>
+                            <input type="text" class="form-control" id="inputApellido" placeholder="Apellido">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputNombres" class="form-label">Nombres</label>
+                            <input type="text" class="form-control" id="inputNombres" placeholder="Nombres">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="inputEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="inputEmail" placeholder="ejemplo@mail.com">
+                        </div>
+                        <div class="col-12">
+                            <label for="inputDireccion" class="form-label">Dirección</label>
+                            <input type="text" class="form-control" id="inputDireccion"
+                                placeholder="Calle Falsa 123, Springfield">
+                        </div>
+                        <div class="col-12">
+                            <label for="inputAddress2" class="form-label">Address 2</label>
+                            <input type="text" class="form-control" id="inputAddress2"
+                                placeholder="Apartment, studio, or floor">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputCiudad" class="form-label">Ciudad</label>
+                            <input type="text" class="form-control" id="inputCiudad">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="inputProvincia" class="form-label">Provincia</label>
+                            <select id="inputProvincia" class="form-select">
+                                <option selected>Elegir...</option>
+                                <option>Buenos Aires</option>
+                                <option>Ciudad Autónoma de Buenos Aires</option>
+                                <option>Catamarca</option>
+                                <option>Chaco</option>
+                                <option>Chubut</option>
+                                <option>Córdoba</option>
+                                <option>Corrientes</option>
+                                <option>Entre Ríos</option>
+                                <option>Formosa</option>
+                                <option>Jujuy</option>
+                                <option>La Pampa</option>
+                                <option>La Rioja</option>
+                                <option>Mendoza</option>
+                                <option>Misiones</option>
+                                <option>Neuquén</option>
+                                <option>Río Negro</option>
+                                <option>Salta</option>
+                                <option>San Juan</option>
+                                <option>San Luis</option>
+                                <option>Santa Cruz</option>
+                                <option>Santa Fe</option>
+                                <option>Santiago del Estero</option>
+                                <option>Tierra del Fuego, Antártida e Islas del Atlántico Sur</option>
+                                <option>Tucumán</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="inputCodPostal" class="form-label">Cod. Postal</label>
+                            <input type="text" class="form-control" id="inputCodPostal">
+                        </div>
+                        <!--<div class="col-12">
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                    <label class="form-check-label" for="gridCheck">
+                        Check me out
+                    </label>
+                    </div>
+                </div>-->
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
-    <script src="./js/index.js"></script>
+            <div class="padron">
+                <h2>Padrón</h2>
+            </div>
+
+        </div>
+
+        <div class="contenedorAfiliados"></div>
+
+        <script src="./js/index.js"></script>
+
+    </main>
+
+
+
+
+
 </body>
+
 </html>

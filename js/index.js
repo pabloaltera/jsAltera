@@ -1,37 +1,59 @@
-let usuario = "a"
-let contrasenia  = "0"
+// let usuario = "admin"
+// let contrasenia  = "1234"
+
+const formIngreso = document.querySelector("#ingreso")
+const divIngreso = document.querySelector(".ingreso")
+const divAltas = document.querySelector(".altas")
+const divPadron = document.querySelector(".padron")
+let usuario = document.querySelector("#userId")
+let contrasenia = document.querySelector("#inputPassword")
 
 
-alert("Comenzando autentificacion de credenciales")
+// function pedirCredenciales() {
+//     usuario = prompt("Ingrese su nombre de usuario")
+//     contrasenia = prompt("Ingrese su contraseña")
+// }
 
-function pedirCredenciales() {
-    usuario = prompt("Ingrese su nombre de usuario")
-    contrasenia = prompt("Ingrese su contraseña")
-}
+//pedirCredenciales()
 
-pedirCredenciales()
 
 let intento = 0
 
-while (usuario !== "admin" || contrasenia !== "1234") {
+
+// while (usuario !== "admin" || contrasenia !== "1234") {
         
-    if (intento < 3){
+//     if (intento < 3){
+//         alert ("Usted ha ingresado credenciales incorrectas, por favor, vuelva a intentarlo")
+//         intento++
+//         console.log("Intento fallido " + intento)
+//     }
+//     else {
+//         alert ("Usted ha ingresado credenciales incorrectas, por favor, vuelva a intentarlo... UNA PISTA: Usuario: admin Contraseña: 1234")
+//         intento++
+//         console.log("Intento fallido " + intento)
+//     }
+//     pedirCredenciales()
+
+// }
+
+function revisarIngreso(usuario, contrasenia) {
+    if (usuario !== "admin" || contrasenia !== "1234"){
         alert ("Usted ha ingresado credenciales incorrectas, por favor, vuelva a intentarlo")
-        intento++
-        console.log("Intento fallido " + intento)
     }
     else {
-        alert ("Usted ha ingresado credenciales incorrectas, por favor, vuelva a intentarlo... UNA PISTA: Usuario: admin Contraseña: 1234")
-        intento++
-        console.log("Intento fallido " + intento)
+        divIngreso.style.display = "none"
+        divAltas.style.display = "flex"
+        divPadron.style.display = "flex"
+        console.log(formIngreso, usuario, contrasenia, divIngreso)
+        console.log("Ingreso")
     }
-    pedirCredenciales()
-
 }
 
-alert("HA INGRESADO SATISFACTORIAMENTE")
-
-alert("COMENZANDO SISTEMA DE GESTION")
+formIngreso.onsubmit = (event) => {
+    event.preventDefault()
+    console.log(event)
+    revisarIngreso(usuario.value,contrasenia.value)
+}
 
 let respuesta
 
@@ -90,7 +112,9 @@ function buscarDni(buscar){
     console.log(padronFiltrado)
 }
 
-accion()
+//accion()
+
+respuesta = "salir"
 
 while (respuesta !== "salir" && respuesta !=="SALIR"){
     if (respuesta === "NUEVO" || respuesta === "nuevo"){
