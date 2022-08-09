@@ -20,32 +20,36 @@ const borrar = document.querySelector("#borrar")
 
 let padron = []
 const obtenerPadrondDelLS = localStorage.getItem("padron")
-const padronParseado = JSON.parse(obtenerPadrondDelLS) ?? []
-padron = (padronParseado)
+const padronParseado = JSON.parse(obtenerPadrondDelLS) || []
+console.log(padronParseado)
+padron = [...padronParseado]
+console.log(padron)
 
-function subirPadronLS() {
-    padronJSON = JSON.stringify(padron)
-    localStorage.setItem("padron", padronJSON)
+
+function errorUsuario() {alert("Usted ha ingresado credenciales incorrectas, por favor, vuelva a intentarlo")}
+
+function okUsuario () {
+    divIngreso.style.display = "none"
+    divAltas.style.display = "flex"
+    divPadron.style.display = "flex"
+    divPadron.style.flexDirection = "column"
+    divBotonera.style.display = "flex"
 }
 
-
 function revisarIngreso(usuario, contrasenia) {
-    if (usuario !== "admin" || contrasenia !== "1234") {
-        alert("Usted ha ingresado credenciales incorrectas, por favor, vuelva a intentarlo")
-    }
-    else {
-        divIngreso.style.display = "none"
-        divAltas.style.display = "flex"
-        divPadron.style.display = "flex"
-        divPadron.style.flexDirection = "column"
-        divBotonera.style.display = "flex"
-    }
+    (usuario !== "admin" || contrasenia !== "1234") ?  errorUsuario() : okUsuario()
 }
 
 formIngreso.onsubmit = (event) => {
     event.preventDefault()
     revisarIngreso(usuario.value, contrasenia.value)
 }
+
+function subirPadronLS() {
+    padronJSON = JSON.stringify(padron)
+    localStorage.setItem("padron", padronJSON)
+}
+
 
 function nuevoAfiliado(fdni, fnombre, fapellido, fdireccion, fcodPostal, fciudad, fprovincia) {
     dni = fdni
@@ -56,16 +60,12 @@ function nuevoAfiliado(fdni, fnombre, fapellido, fdireccion, fcodPostal, fciudad
     ciudad = fciudad
     provincia = fprovincia
 
-    if (padron.some((Afiliado) => {
-        return Afiliado.dni === dni
-    })) {
-        alert(`El DNI  ${dni} ingresado ya figura en la base de datos!!`)
-    } else {
-        padron.push({ dni, nombre, apellido, domicilio, codPostal, ciudad, provincia })
-    }
+    padron.some((Afiliado) => { return Afiliado.dni === dni }) ? (alert(`El DNI  ${dni} ingresado ya figura en la base de datos!!`)) : (padron.push({ dni, nombre, apellido, domicilio, codPostal, ciudad, provincia }))
 
     subirPadronLS()
 
+    console.log(padronParseado)
+    console.log(padron)
 
 }
 

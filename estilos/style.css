@@ -50,5 +50,11 @@ td,th{
 .botonera{
     display:none;
     flex-direction: row;
-    justify-content:space-evenly;
+    justify-content:end;
+}
+
+.botonBorrar{
+    display: flex;
+    flex-direction: row;
+    justify-content:end;
 }
