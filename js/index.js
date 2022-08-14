@@ -21,12 +21,10 @@ const borrar = document.querySelector("#borrar")
 let padron = []
 const obtenerPadrondDelLS = localStorage.getItem("padron")
 const padronParseado = JSON.parse(obtenerPadrondDelLS) || []
-console.log(padronParseado)
 padron = [...padronParseado]
-console.log(padron)
 
 
-function errorUsuario() {alert("Usted ha ingresado credenciales incorrectas, por favor, vuelva a intentarlo")}
+function errorUsuario() { swal("ACCESO INVALIDO!!!", "Usted ha ingresado credenciales incorrectas, por favor, vuelva a intentarlo.", "error")}
 
 function okUsuario () {
     divIngreso.style.display = "none"
@@ -34,6 +32,15 @@ function okUsuario () {
     divPadron.style.display = "flex"
     divPadron.style.flexDirection = "column"
     divBotonera.style.display = "flex"
+    Toastify({
+        text: "BIENVENIDO!!!",
+        close: true,
+        duration: 5000,
+        close: true,
+        gravity: "top", 
+        position: "right",
+        stopOnFocus: true,
+    }).showToast()
 }
 
 function revisarIngreso(usuario, contrasenia) {
@@ -51,6 +58,23 @@ function subirPadronLS() {
 }
 
 
+function agregaPadron(arrayPadron){
+    padron.push(arrayPadron)
+    Toastify({
+        text: "Alta generada correctamente",
+        close: true,
+        duration: 5000,
+        close: true,
+        gravity: "top", 
+        position: "right",
+        stopOnFocus: true,
+    }).showToast()
+}
+
+function datoRepetido(dni) {
+    swal("ERROR!!!", `El DNI  ${dni} ingresado ya figura en la base de datos!!`, "error");
+}
+
 function nuevoAfiliado(fdni, fnombre, fapellido, fdireccion, fcodPostal, fciudad, fprovincia) {
     dni = fdni
     nombre = fnombre
@@ -60,13 +84,9 @@ function nuevoAfiliado(fdni, fnombre, fapellido, fdireccion, fcodPostal, fciudad
     ciudad = fciudad
     provincia = fprovincia
 
-    padron.some((Afiliado) => { return Afiliado.dni === dni }) ? (alert(`El DNI  ${dni} ingresado ya figura en la base de datos!!`)) : (padron.push({ dni, nombre, apellido, domicilio, codPostal, ciudad, provincia }))
+    padron.some((Afiliado) => { return Afiliado.dni === dni }) ? datoRepetido(dni) : (agregaPadron({ dni, nombre, apellido, domicilio, codPostal, ciudad, provincia }))
 
     subirPadronLS()
-
-    console.log(padronParseado)
-    console.log(padron)
-
 }
 
 function mostrarPadron() {
@@ -96,15 +116,26 @@ formAltas.onsubmit = (event) => {
     nuevoAfiliado(fdni.value, fnombre.value, fapellido.value, fdireccion.value, fcodPostal.value, fciudad.value, fprovincia.value)
 
     mostrarPadron()
-    formAltas.reset()
-
 }
 
 borrar.onclick = () => {
-    padron.pop();
-    alert("El registro ha sido borrado!")
-    subirPadronLS()
-    mostrarPadron()
+    swal({
+        title: "¿Estas seguro?",
+        text: "Estas por eliminar el último registro ingresado",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+    .then((willDelete) => {
+        if (willDelete) {
+            padron.pop();
+            subirPadronLS()
+            mostrarPadron()
+            swal("El registro fue eliminado!!", {
+            icon: "success",
+        });
+        } 
+    });
 }
 
 
