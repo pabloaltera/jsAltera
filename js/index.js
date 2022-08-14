@@ -95,11 +95,11 @@ function mostrarPadron() {
         return acc = acc + `    
             <tr class="tabla"> 
                 <td>${elemento.apellido} ${elemento.nombre}</td>
-                <td>DNI: ${elemento.dni}</td>
-                <td>Domicilio: ${elemento.domicilio}</td>
-                <td>Cod. Postal: ${elemento.codPostal}</td>
-                <td>Ciudad: ${elemento.ciudad}</td>
-                <td>Privincia: ${elemento.provincia}</td>
+                <td>${elemento.dni}</td>
+                <td>${elemento.domicilio}</td>
+                <td>${elemento.codPostal}</td>
+                <td>${elemento.ciudad}</td>
+                <td>${elemento.provincia}</td>
             </tr>
         `
     }, "<table> <tr> <th>APELLIDO Y NOMBRE</th>  <th>DNI</th> <th>DOMICILIO</th> <th>COD POSTAL</th> <th>CIUDAD</th> <th>PROVINCIA</th>  </tr>")
