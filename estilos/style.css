@@ -39,11 +39,7 @@ td,th{
     align-items: center;
 }
 
-.altas{
-    display: none;
-}
-
-.padron{
+.altas, .padron, #divContrasenia, #divRegistro {
     display: none;
 }
 

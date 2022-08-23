@@ -19,8 +19,8 @@
     <main>
 
         <div class="d-flex flex-column align-items-center container gap-3">
-            <div class="ingreso">
-                <div class="border border-primary rounded-3 gap-2 px-5 py-3 bg-light">
+            <div class="ingreso border border-primary rounded-3 gap-2 px-5 py-3 bg-light">
+                <div id="logIn">
                     <h2 class="text-primary">Ingresar</h2>
                     <form id="ingreso">
                         <div class="mb-3">
@@ -33,7 +33,62 @@
                             <label for="inputPassword" class="form-label">Contraseña</label>
                             <input type="password" class="form-control" id="inputPassword">
                         </div>
-                        <button type="submit" class="btn btn-primary mb-2">Ingresar</button>
+                        <div class="d-flex flex-row justify-content-center">
+                            <button id="logIn" type="submit" class="btn btn-primary mx-2 mb-2">Ingresar</button>
+                        </div>
+
+                    </form>
+                    <div id="registroYrecupero">
+                        <div id="recuperoContrasenia" class="d-flex flex-row justify-content-center">
+                            <button id="registro" class="btn btn-primary mx-2 mb-2">Registrarse</button>
+                            <button id="botonContrasenia" class="btn btn-primary mb-2">Olvide mi contraseña</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="divRegistro">
+                    <form id="formRegistro">
+                        <div class="mb-3">
+                            <h3>Registro</h3>
+                            <label for="newDni" class="form-label">DNI</label>
+                            <input type="text" class="form-control" id="newDni" aria-describedby="userHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="newEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="newEmail" aria-describedby="userHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="newUserId" class="form-label">Usuario</label>
+                            <input type="text" class="form-control" id="newUserId" aria-describedby="userHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="newInputPassword" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="newInputPassword">
+                        </div>
+                        <div class="d-flex flex-row justify-content-center">
+                            <button id="guardaUsuario" type="submit" class="btn btn-primary mx-2 mb-2">Guardar</button>
+                        </div>
+
+                    </form>
+                </div>
+                <div id="divContrasenia">
+                    <form id="formContrasenia">
+                        <h3>Modifica tu contraseña</h3>
+                        <div class="mb-3">
+                            <label for="recuUserId" class="form-label">Usuario</label>
+                            <input type="text" class="form-control" id="recuUserId" aria-describedby="userHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="recuDni" class="form-label">DNI</label>
+                            <input type="number" class="form-control" id="recuDni" aria-describedby="userHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="recuPassword" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="recuPassword">
+                        </div>
+                        <div class="d-flex flex-row justify-content-center">
+                            <button id="recuperar" type="submit" class="btn btn-primary mx-2 mb-2">Cambiar contraseña</button>
+                        </div>
+
                     </form>
                 </div>
             </div>

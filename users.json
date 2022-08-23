@@ -1,0 +1,15 @@
+[
+    {
+        "username":"admin",
+        "password":"1234",
+        "dni":"12345678",
+        "email":"admin@admin.com"
+    },
+    {
+        "email":"test@test",
+        "username":"test",
+        "password":"test",
+        "dni":"11222333"
+    }
+    
+]
