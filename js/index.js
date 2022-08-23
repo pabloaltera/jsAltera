@@ -55,31 +55,27 @@ function bajarDelSesionStorage(){
 function obtenerusuarios(){ fetch("http://127.0.0.1:5500/users.json")
     .then( res => res.json())
     .then( data => {
-        console.log(data)
         users=[...data]
-        console.log(users)
         setSesionStorage()
         })
-    console.log(users)
     bajarDelSesionStorage()
     } 
 
 
 obtenerusuarios()
-console.log(users)
 
-function subirUsuarios(){
+function subirUsuariosAlJson(){
     fetch("http://127.0.0.1:5500/users.json", {
         method: "PUT",
         body: JSON.stringify(users),
         headers: {
-            "Content-type" : "application/json; charset=UTF=8",
-        }}
-        )
+            'Content-type' : 'application/json; charset=UTF-8',
+        }})
+        .then((response)=> response.json())
+        
 }
 
 //LOG IN
-
 
 
 
@@ -151,10 +147,6 @@ formIngreso.onsubmit = (event) => {
 
 //REGISTRO
 
-function setStorage(){
-    localStorage.setItem("users", JSON.stringify(users))
-}
-
 
 class NewUser {
     constructor(email, username, password, dni) {
@@ -168,8 +160,6 @@ class NewUser {
 function register() {
     const nuevoUsuario = new NewUser(nuevoEmail.value, nuevoUser.value, nuevaContrasenia.value, nuevoDNI.value)
     users.push(nuevoUsuario)
-    console.log(nuevoUsuario)
-    console.log(users)
 }
 
 formRegistro.onsubmit = (e) => {
@@ -180,9 +170,8 @@ formRegistro.onsubmit = (e) => {
         function nuevoUsuario() {
             const newUser = new NewUser(nuevoEmail.value, nuevoUser.value, nuevaContrasenia.value, nuevoDNI.value)
             users.push(newUser)
-            console.log(users)
             setSesionStorage()
-            subirUsuarios()
+            subirUsuariosAlJson()
         }
 
         (mailExiste || usernameExiste) ? alert("Este usuario ya se encuentra registrado"): nuevoUsuario()
