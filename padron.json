@@ -1,0 +1,29 @@
+[
+    {
+        "dni":"11222333",
+        "nombre":"Cosme",
+        "apellido":"Fulanito",
+        "domicilio":"Calle Falsa 123",
+        "codPostal":"1111",
+        "ciudad":"Springfield",
+        "provincia":"Buenos Aires"
+    } ,
+    {
+        "dni":"44555666",
+        "nombre":"Homero",
+        "apellido":"Simpson",
+        "domicilio":"Avenida Siempreviva 742",
+        "codPostal":"1234",
+        "ciudad":"Springfield",
+        "provincia":"Buenos Aires"
+    } ,
+    {
+        "dni":"77888999",
+        "nombre":"Bruce",
+        "apellido":"Wayne",
+        "domicilio":"Mountain Drive 1007",
+        "codPostal":"7890",
+        "ciudad":"Gotham",
+        "provincia":"Ciudad Autonoma de Buenos Aires"
+    }
+]
