@@ -37,32 +37,29 @@ const padronParseado = JSON.parse(obtenerPadrondDelLS) || []
 padron = [...padronParseado]
 
 
-function setSesionStorage(){
-    sessionStorage.setItem("users", JSON.stringify(users))
+function subirUsuariosLS(){
+    localStorage.setItem("users", JSON.stringify(users))
 }
 
 
-function bajarDelSesionStorage(){
-    users = JSON.parse(sessionStorage.getItem("users")) || [{
-        username: "admin",
-        password: "1234",
-        dni: "12345678",
-        email: "admin@admin.com"
-    }]
-}
 
 
+//Inicialar usuarios iniciales en LS
 function obtenerusuarios(){ fetch("http://127.0.0.1:5500/users.json")
     .then( res => res.json())
     .then( data => {
-        users=[...data]
-        setSesionStorage()
+        users = data
+        subirUsuariosLS()
         })
-    bajarDelSesionStorage()
     } 
 
+    function bajarUsuariosLS(){
+        users = JSON.parse(localStorage.getItem("users")) || obtenerusuarios()
+    }
 
-obtenerusuarios()
+//Comenzamos por defecto cargando a los usuarios en el sistema, siempre vamos a tener por defecto los del json en caso de usar por primera vez el programa
+bajarUsuariosLS()
+
 
 function subirUsuariosAlJson(){
     fetch("http://127.0.0.1:5500/users.json", {
@@ -72,7 +69,7 @@ function subirUsuariosAlJson(){
             'Content-type' : 'application/json; charset=UTF-8',
         }})
         .then((response)=> response.json())
-        
+        .catch( () => console.log("No tenemos permiso para actualizar el Json"))
 }
 
 //LOG IN
@@ -170,11 +167,11 @@ formRegistro.onsubmit = (e) => {
         function nuevoUsuario() {
             const newUser = new NewUser(nuevoEmail.value, nuevoUser.value, nuevaContrasenia.value, nuevoDNI.value)
             users.push(newUser)
-            setSesionStorage()
+            subirUsuariosLS()
             subirUsuariosAlJson()
         }
 
-        (mailExiste || usernameExiste) ? alert("Este usuario ya se encuentra registrado"): nuevoUsuario()
+        (mailExiste || usernameExiste) ? swal("Cuenta existente!", "El mail o el usuario ingresados ya corresponden a un usuario en el sistema, por favor volver a intentarlo", "error") : nuevoUsuario()
     }
 
 
