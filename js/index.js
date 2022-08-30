@@ -32,18 +32,10 @@ const logOut = document.querySelector("#logOut")
 const borrar = document.querySelector("#borrar")
 
 let users = []
-let padron = []
-const obtenerPadrondDelLS = localStorage.getItem("padron")
-const padronParseado = JSON.parse(obtenerPadrondDelLS) || []
-padron = [...padronParseado]
-
 
 function subirUsuariosLS(){
     localStorage.setItem("users", JSON.stringify(users))
 }
-
-
-
 
 //Inicialar usuarios iniciales en LS
 function obtenerusuarios(){ fetch("http://127.0.0.1:5500/users.json")
@@ -202,13 +194,53 @@ botonCambio.onclick = (e) => {
     changePassword()
 }
 
-//APLICACION DE PADRONES
 
-function subirPadronLS() {
+
+//APLICACION DE PADRONES
+//Si es la primera vez que se usa el sistema, se cargan datos iniciales desde archivo json
+
+let padron = []
+
+function subirPadronLS(){
     padronJSON = JSON.stringify(padron)
     localStorage.setItem("padron", padronJSON)
 }
 
+function subirPadronJson(){
+    fetch("http://127.0.0.1:5500/padron.json", {
+        method: "PUT",
+        body: JSON.stringify(padron),
+        headers: {
+            'Content-type' : 'application/json; charset=UTF-8',
+        }})
+        .then((response)=> response.json())
+        .catch( () => console.log("No tenemos permiso para actualizar el Json"))
+}
+
+function subirPadron() {
+    subirPadronLS()
+    subirPadronJson()
+}
+
+function obtenerPadron(){
+    fetch("http://127.0.0.1:5500/padron.json")
+    .then( res => res.json())
+    .then(data => {
+        padron = data
+        subirPadronLS()
+    })
+    return padron
+}
+
+
+function bajarPadronLS(){
+    const padronParseado = JSON.parse(localStorage.getItem("padron")) || obtenerPadron()
+    if (padronParseado !== padron){
+    padron = [...padronParseado]
+    }
+}
+
+bajarPadronLS()
 
 function agregaPadron(arrayPadron){
     padron.push(arrayPadron)
@@ -238,7 +270,7 @@ function nuevoAfiliado(fdni, fnombre, fapellido, fdireccion, fcodPostal, fciudad
 
     padron.some((Afiliado) => { return Afiliado.dni === dni }) ? datoRepetido(dni) : (agregaPadron({ dni, nombre, apellido, domicilio, codPostal, ciudad, provincia }))
 
-    subirPadronLS()
+    subirPadron()
 }
 
 function mostrarPadron() {
@@ -281,7 +313,7 @@ borrar.onclick = () => {
     .then((willDelete) => {
         if (willDelete) {
             padron.pop();
-            subirPadronLS()
+            subirPadron()
             mostrarPadron()
             swal("El registro fue eliminado!!", {
             icon: "success",
