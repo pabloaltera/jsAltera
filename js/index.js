@@ -19,6 +19,7 @@ const recuperarDNI = document.querySelector("#recuDni")
 const recuperarContrasenia = document.querySelector("#recuPassword")
 const botonRegistro = document.querySelector("#registro")
 const botonContrasenia = document.querySelector("#botonContrasenia")
+const botonCambio = document.querySelector("#recuperar")
 const fdni = document.querySelector("#inputDni")
 const fapellido = document.querySelector("#inputApellido")
 const fnombre = document.querySelector("#inputNombres")
@@ -178,6 +179,28 @@ formRegistro.onsubmit = (e) => {
 
 
 //CAMBIAR CONTRASEÑA
+function changePassword(){
+    let dniRegistrado = users.find(userF => userF.dni === recuperarDNI.value)
+
+    if (dniRegistrado !== undefined) {
+        if (dniRegistrado.username === recuperarUsuario.value) {
+            dniRegistrado.password = recuperarContrasenia.value
+        swal("La contraseña fue modificada", {
+            icon: "success",
+        })
+        subirUsuariosLS()
+        subirUsuariosAlJson()
+        }
+        else {
+            swal("ERROR", "El usuario no concuerda con el DNI ingresado", "error")
+        }
+    }
+}
+
+botonCambio.onclick = (e) => {
+    e.preventDefault()
+    changePassword()
+}
 
 //APLICACION DE PADRONES
 
