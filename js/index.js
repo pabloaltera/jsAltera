@@ -65,6 +65,14 @@ function subirUsuariosAlJson(){
         .catch( () => console.log("No tenemos permiso para actualizar el Json"))
 }
 
+function mensajeExito(mensaje){
+    swal(mensaje, "", "success")
+}
+
+function mensajeError(cabecera,mensaje){
+    swal(cabecera, mensaje, "error")
+}
+
 //LOG IN
 
 
@@ -95,7 +103,7 @@ botonContrasenia.onclick = () => {
 
 //INICIO DE SESION
 
-function errorUsuario() { swal("ACCESO INVALIDO!!!", "Usted ha ingresado credenciales incorrectas, por favor, vuelva a intentarlo.", "error")}
+function errorUsuario() { mensajeError("ACCESO INVALIDO!!!", "Usted ha ingresado credenciales incorrectas, por favor, vuelva a intentarlo.") }
 
 function okUsuario () {
     divIngreso.style.display = "none"
@@ -162,9 +170,10 @@ formRegistro.onsubmit = (e) => {
             users.push(newUser)
             subirUsuariosLS()
             subirUsuariosAlJson()
+            mensajeExito("El usuario fue registrado correctamente")
         }
 
-        (mailExiste || usernameExiste) ? swal("Cuenta existente!", "El mail o el usuario ingresados ya corresponden a un usuario en el sistema, por favor volver a intentarlo", "error") : nuevoUsuario()
+        (mailExiste || usernameExiste) ? mensajeError("Cuenta existente!", "El mail o el usuario ingresados ya corresponden a un usuario en el sistema, por favor volver a intentarlo") : nuevoUsuario()
     }
 
 
@@ -177,14 +186,12 @@ function changePassword(){
     if (dniRegistrado !== undefined) {
         if (dniRegistrado.username === recuperarUsuario.value) {
             dniRegistrado.password = recuperarContrasenia.value
-        swal("La contraseña fue modificada", {
-            icon: "success",
-        })
+        mensajeExito("La contraseña fue modificada")
         subirUsuariosLS()
         subirUsuariosAlJson()
         }
         else {
-            swal("ERROR", "El usuario no concuerda con el DNI ingresado", "error")
+            mensajeError("ERROR", "El usuario no concuerda con el DNI ingresado")
         }
     }
 }
@@ -256,7 +263,7 @@ function agregaPadron(arrayPadron){
 }
 
 function datoRepetido(dni) {
-    swal("ERROR!!!", `El DNI  ${dni} ingresado ya figura en la base de datos!!`, "error");
+    mensajeError("ERROR!!!", `El DNI  ${dni} ingresado ya figura en la base de datos!!`);
 }
 
 function nuevoAfiliado(fdni, fnombre, fapellido, fdireccion, fcodPostal, fciudad, fprovincia) {
@@ -298,7 +305,7 @@ mostrarPadron()
 formAltas.onsubmit = (event) => {
     event.preventDefault()
     nuevoAfiliado(fdni.value, fnombre.value, fapellido.value, fdireccion.value, fcodPostal.value, fciudad.value, fprovincia.value)
-
+    formAltas.reset()
     mostrarPadron()
 }
 
@@ -312,12 +319,10 @@ borrar.onclick = () => {
     })
     .then((willDelete) => {
         if (willDelete) {
-            padron.pop();
+            padron.pop()
             subirPadron()
             mostrarPadron()
-            swal("El registro fue eliminado!!", {
-            icon: "success",
-        });
+            mensajeExito("El registro fue eliminado!!")
         } 
     });
 }
